@@ -1,0 +1,40 @@
+importdir: /mnt/mailmove
+intermediate: Maildir
+zmmbox: /opt/zimbra/bin/zmmailbox
+suffix: ""
+substitutions:
+  inbox:
+    old:
+      - .INBOX
+    new:
+      - Inbox
+  drafts:
+    old:
+      - .Drafts
+    new:
+      - Drafts
+  trash:
+    old:
+      - .Elemente &Ahk-terse
+      - .Deleted Items
+      - .Trash
+    new:
+      - Trash
+  spam:
+    old:
+      - .Po&Ahk-t&AQM- electronic&AQM- nedorit&AQM-
+      - .Po&AV8-t&AQM- electronic&AQM- nedorit&AQM-
+      - .Junk E-mail
+      - .Junk Email
+      - .Spam
+      - .Junk
+    new:
+      - Junk
+  sent:
+    old:
+      - .Sent Items
+      - .Elemente trimise
+      - .Sent Messages
+      - .Sent
+    new:
+      - Sent
