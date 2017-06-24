@@ -26,18 +26,21 @@ def zmimportmail(src='', dst=''):
 
     print '      Importing from {}/cur'.format(src)
 
-    if os.listdir('{}/cur'.format(src)):
+    listdir = os.listdir(src)
+    if 'cur' in listdir and os.listdir('{}/cur'.format(src)):
         command = '{} -z -m {}@{}'.format(cfg['zmmbox'], user, domain)
+        print '        command is {}'.format(command)
         p = Popen(command.split(), stdout=PIPE, stdin=PIPE, stderr=STDOUT)
         command_out = p.communicate(input='addMessage --noValidation "{}" "{}/cur"\n'.format(dst, src))[0]
         print(command_out.decode())
     else:
         print '        Empty. Skipping'
     print '      Importing from {}/new'.format(src)
-    if os.listdir('{}/new'.format(src)):
-        command = '{} -z -m {}@{}'.format(dst, src, cfg['zmmbox'], user, domain)
+    if 'new' in listdir and os.listdir('{}/new'.format(src)):
+        command = '{} -z -m {}@{}'.format(cfg['zmmbox'], user, domain)
+        print '        command is {}'.format(command)
         p = Popen(command.split(), stdout=PIPE, stdin=PIPE, stderr=STDOUT)
-        command_out = p.communicate(input='addMessage --noValidation "{}" "{}"/new\n'.format(dst, src))[0]
+        command_out = p.communicate(input='addMessage --noValidation "{}" "{}/new"\n'.format(dst, src))[0]
         print(command_out.decode())
     else:
         print '        Empty. Skipping'
@@ -87,3 +90,4 @@ for domain in domainlist:
             print '      Importing from: \033[94m{}\033[0m to: \033[92m{}\033[0m'.format(folder, folder_new)
             zmcreatefolder(folder_new.split('/'))
             zmimportmail('/'.join([userfolder, folder]), folder_new)
+
